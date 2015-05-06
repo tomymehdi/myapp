@@ -1,10 +1,12 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
+  http_basic_authenticate_with name: 'dhh', password: 'secret', only: :destroy
 
   # GET /posts
   # GET /posts.json
   def index
-    @posts = Post.all
+    @article = Article.find(params[:article_id])
+    @posts = @article.posts
   end
 
   # GET /posts/1
@@ -14,6 +16,7 @@ class PostsController < ApplicationController
 
   # GET /posts/new
   def new
+    @article = Article.find(params[:article_id])
     @post = Post.new
   end
 
@@ -24,12 +27,12 @@ class PostsController < ApplicationController
   # POST /posts
   # POST /posts.json
   def create
+    @article = Article.find(params[:article_id])
     @post = Post.new(post_params)
 
     respond_to do |format|
       if @post.save
-        format.html { redirect_to @post, notice: 'Post was successfully created.' }
-        format.json { render :show, status: :created, location: @post }
+        success_create(format, @article, 'Post was successfully created.', :created)
       else
         format.html { render :new }
         format.json { render json: @post.errors, status: :unprocessable_entity }
@@ -42,8 +45,7 @@ class PostsController < ApplicationController
   def update
     respond_to do |format|
       if @post.update(post_params)
-        format.html { redirect_to @post, notice: 'Post was successfully updated.' }
-        format.json { render :show, status: :ok, location: @post }
+        success_create(format, @post, 'Post was successfully updated.', :ok)
       else
         format.html { render :edit }
         format.json { render json: @post.errors, status: :unprocessable_entity }
@@ -62,13 +64,19 @@ class PostsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_post
-      @post = Post.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def post_params
-      params.require(:post).permit(:title, :body)
-    end
+  def success_create(format, model, msg, status)
+    format.html { redirect_to model, notice: msg }
+    format.json { render :show, status: status, location: model }
+  end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_post
+    @article = Article.find(params[:article_id])
+    @post = Post.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def post_params
+    params.require(:post).permit(:author, :body, :article_id)
+  end
 end
