@@ -1,10 +1,23 @@
 class ArticlesController < ApplicationController
+	before_action :set_article, only: [:show]
 
 	# GET /articles
 	# GET /articles.json
 	def index
 	  @articles = Article.all
 	end
+
+	  # GET /articles/new
+  def new
+    @article = Article.new
+  end
+
+  def show
+  end
+
+  # GET /articless/1/edit
+  def edit
+  end
 
 	# POST /articles
 	# POST /articles.json
@@ -21,5 +34,15 @@ class ArticlesController < ApplicationController
 		  end
 		end
 	end
+
+	private
+
+		def article_params
+			params.require(:article).permit(:name)
+		end
+
+		def set_article
+			@article = Article.find(params[:id])
+		end
 
 end
