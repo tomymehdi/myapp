@@ -1,8 +1,8 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Article:</strong>
-  <%= @post.title %>
+  <strong>Author:</strong>
+  <%= @post.author %>
 </p>
 
 <p>
@@ -10,5 +10,5 @@
   <%= @post.body %>
 </p>
 
-<%= link_to 'Edit', edit_post_path(@post) %> |
-<%= link_to 'Back', posts_path %>
+<%= link_to 'Edit', edit_article_post_path(@article, @post) %> |
+<%= link_to 'Back', article_posts_path(@article) %>
