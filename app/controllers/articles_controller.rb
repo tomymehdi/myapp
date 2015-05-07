@@ -1,7 +1,5 @@
 class ArticlesController < ApplicationController
-  before_action :set_article, only: [:show]
   before_action :authenticate_user!, except: [:index, :show]
-  # http_basic_authenticate_with name: 'dhh', password: 'secret', except: [:index, :show]
 
   # GET /articles
   # GET /articles.json
@@ -15,10 +13,12 @@ class ArticlesController < ApplicationController
   end
 
   def show
+    article
   end
 
   # GET /articles/:id/edit
   def edit
+    article
   end
 
   # POST /articles
@@ -39,11 +39,11 @@ class ArticlesController < ApplicationController
 
   private
 
-  def article_params
-    params.require(:article).permit(:name)
+  def article
+    @article ||= Article.find(params[:id])
   end
 
-  def set_article
-    @article = Article.find(params[:id])
+  def article_params
+    params.require(:article).permit(:name)
   end
 end
