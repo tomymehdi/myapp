@@ -4,8 +4,7 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
-    article
-    @posts = @article.posts
+    @posts = article.posts
   end
 
   # GET /posts/1
@@ -30,7 +29,7 @@ class PostsController < ApplicationController
   # POST /posts
   # POST /posts.json
   def create
-    @article = Article.find(params[:article_id])
+    article
     @post = Post.new(post_params)
 
     respond_to do |format|
@@ -46,14 +45,13 @@ class PostsController < ApplicationController
   # PATCH/PUT /posts/1
   # PATCH/PUT /posts/1.json
   def update
-    post
     article
     respond_to do |format|
-      if @post.update(post_params)
-        success_create(format, @post, 'Post was successfully updated.', :ok)
+      if post.update(post_params)
+        success_create(format, post, 'Post was successfully updated.', :ok)
       else
         format.html { render :edit }
-        format.json { render json: @post.errors, status: :unprocessable_entity }
+        format.json { render json: post.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -61,9 +59,8 @@ class PostsController < ApplicationController
   # DELETE /posts/1
   # DELETE /posts/1.json
   def destroy
-    post
     article
-    @post.destroy
+    post.destroy
     respond_to do |format|
       format.html { redirect_to posts_url, notice: 'Post was successfully destroyed.' }
       format.json { head :no_content }

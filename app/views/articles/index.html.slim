@@ -1,5 +1,4 @@
 #notice= notice
-= t :hello_world
 h1 = t :listing_articles
 table
   thead
@@ -14,5 +13,6 @@ table
         td= link_to (t :show), article
         td= link_to (t :edit), edit_article_path(article)
         td= link_to (t :destroy), article, method: :delete, data: { confirm: (t :are_you_sure) }
-= link_to (t :new_article), new_article_path
+= link_to new_article_path do
+  button.btn.btn-default (t :new_article)
 
