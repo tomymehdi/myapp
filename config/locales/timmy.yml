@@ -1,0 +1,11 @@
+timmy:
+  hello_world: "Ahoy wey"
+  show: "Ver"
+  back: "Atras"
+  edit: "Editar"
+  destroy: "Borrar"
+  new_article: "Nuevo Articulo"
+  listing_articles: "Lista Articulos"
+  article: "Articulo"
+  name: "Nombre"
+  are_you_sure: "Estas seguro?"

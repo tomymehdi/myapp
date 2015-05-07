@@ -1,5 +1,4 @@
 class Article < ActiveRecord::Base
-	has_many :comments
-	validates :title, presence: true,
-                    length: { minimum: 5 }
+  has_many :posts
+  validates :name,  presence: true, length: { minimum: 5 }
 end
