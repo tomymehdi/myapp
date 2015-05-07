@@ -2,7 +2,7 @@
   - if @post.errors.any?
     #error_explanation
       h2
-        = pluralize(@post.errors.count, "error")
+        = pluralize(@post.errors.count, (t :error))
         | prohibited this post from being saved:
       ul
         - @post.errors.full_messages.each do |message|

@@ -5,6 +5,6 @@ p
 p
   strong Body:
   = @post.body
-= link_to 'Edit', edit_article_post_path(@article, @post)
+= link_to (t :edit), edit_article_post_path(@article, @post)
 = ' | '
-= link_to 'Back', article_posts_path(@article)
+= link_to (t :back), article_posts_path(@article)

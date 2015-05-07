@@ -21,6 +21,17 @@ class ArticlesController < ApplicationController
     article
   end
 
+  # DELETE /articles/1
+  # DELETE /articles/1.json
+  def destroy
+    article
+    @article.destroy
+    respond_to do |format|
+      format.html { redirect_to articles_url, notice: 'Article was successfully destroyed.' }
+      format.json { head :no_content }
+    end
+  end
+
   # POST /articles
   # POST /articles.json
   def create
@@ -44,6 +55,6 @@ class ArticlesController < ApplicationController
   end
 
   def article_params
-    params.require(:article).permit(:name)
+    params.require(:article).permit(:name, :article_id)
   end
 end
