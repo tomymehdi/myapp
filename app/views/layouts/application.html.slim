@@ -8,14 +8,14 @@ html
   body
     nav.navbar.navbar-default
       .container-fluid
-        /! Brand and toggle get grouped for better mobile display
         .navbar-header
-          button.navbar-toggle.collapsed data-target="#bs-example-navbar-collapse-1" data-toggle="collapse" type="button"
-            span.sr-only Toggle navigation
-            span.icon-bar
-            span.icon-bar
-            span.icon-bar
+          button.navbar-toggle.collapsed type="button"
           a.navbar-brand href="#" =(t :timmy)
+        .collapse.navbar-collapse
+          .nav.navbar-nav.navbar-right
+            .navbar-toggle.collapsed type="button"
+            = link_to destroy_user_session_path(@user), method: 'delete', class: 'navbar-brand' do
+              =(t :sign_out)
     p.notice= notice
     p.alert= alert
     = yield

@@ -16,3 +16,4 @@ en:
   success_destory: "Article was successfully destroyed."
   success_create: "Article was successfully created."
   success_update: "Article was successfully updated."
+  sign_out: "Sign out"
