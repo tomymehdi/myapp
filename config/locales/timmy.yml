@@ -10,3 +10,8 @@ timmy:
   name: "Nombre"
   are_you_sure: "Estas seguro?"
   timmy: "Timmy"
+  edit_post: "Editando post"
+  edit_article: "Editando articulo"
+  success_destory: "Articulo destruido exitosamente."
+  success_create: "Articulo creado con exito."
+  success_update: "Articulo modificado con exito."

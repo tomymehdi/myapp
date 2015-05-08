@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_action :authenticate_user!, only: :destroy
+  before_action :authenticate_user!, only: [:create, :destroy]
 
   # GET /posts
   # GET /posts.json
@@ -62,7 +62,7 @@ class PostsController < ApplicationController
     article
     post.destroy
     respond_to do |format|
-      format.html { redirect_to posts_url, notice: 'Post was successfully destroyed.' }
+      format.html { redirect_to article, notice: 'Post was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

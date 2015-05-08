@@ -11,3 +11,8 @@ en:
   are_you_sure: "Are you sure?"
   error: "error"
   timmy: "Timmy"
+  edit_post: "Editing post"
+  edit_article: "Editing article"
+  success_destory: "Article was successfully destroyed."
+  success_create: "Article was successfully created."
+  success_update: "Article was successfully updated."
