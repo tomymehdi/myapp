@@ -12,6 +12,9 @@ table
       tr
         td= post.author
         td= post.body
-        td= link_to (t :back), article_post_path(@article, post)
-        td= link_to (t :edit), edit_article_post_path(@article, post)
-        td= link_to (t :destroy), article_post_path(@article, post), method: :delete, data: { confirm: (t :are_you_sure) }
+        td= link_to article_post_path(@article, post) do
+          button.btn.btn-default = (t :back)
+        td= link_to edit_article_post_path(@article, post) do
+          button.btn.btn-default = (t :edit)
+        td= link_to article_post_path(@article, post), method: :delete, data: { confirm: (t :are_you_sure) } do
+          button.btn.btn-default = (t :destroy)

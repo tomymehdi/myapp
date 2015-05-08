@@ -3,11 +3,12 @@ p
   strong Name:
   = @article.name
 
-= link_to 'Edit', edit_article_path(@article)
-= ' | '
-= link_to 'Back', articles_path
-= ' | '
-= link_to 'Add post', new_article_post_path(@article)
+= link_to edit_article_path(@article) do
+  button.btn.btn-default = (t :edit)
+= link_to articles_path do
+  button.btn.btn-default = (t :back)
+= link_to new_article_post_path(@article) do
+  button.btn.btn-default = (t :new_article)
 
 h1 Listing Posts
 table
@@ -21,6 +22,9 @@ table
       tr
         td= post.author
         td= post.body
-        td= link_to (t :show), article_post_path(@article, post)
-        td= link_to (t :edit), edit_article_post_path(@article, post)
-        td= link_to (t :destroy), article_post_path(@article, post), method: :delete, data: { confirm: (t :are_you_sure) }
+        td= link_to article_post_path(@article, post) do
+          button.btn.btn-default = (t :show)
+        td= link_to edit_article_post_path(@article, post) do
+          button.btn.btn-default = (t :edit)
+        td= link_to article_post_path(@article, post), method: :delete, data: { confirm: (t :are_you_sure) } do
+          button.btn.btn-default = (t :destroy)
