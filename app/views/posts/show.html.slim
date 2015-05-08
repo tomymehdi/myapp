@@ -1,0 +1,11 @@
+#notice= notice
+p
+  strong Author:
+  = @post.author
+p
+  strong Body:
+  = @post.body
+= link_to edit_article_post_path(@article, @post) do
+  button.btn.btn-default = (t :edit)
+= link_to article_posts_path(@article) do
+  button.btn.btn-default = (t :back)

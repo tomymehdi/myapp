@@ -1,5 +1,21 @@
-h1 New Article
+#notice= notice
+h1 = t :listing_articles
+table
+  thead
+    tr
+      th (t :article)
+      th (t :name)
+      th colspan="3"
+  tbody
+    - @articles.each do |article|
+      tr
+        td= article.name
+        td= link_to article do
+          button.btn.btn-default = (t :show)
+        td= link_to edit_article_path(article) do
+          button.btn.btn-default = (t :edit)
+        td= link_to article, method: :delete, data: { confirm: (t :are_you_sure) } do
+          button.btn.btn-default = (t :destroy)
+= link_to new_article_path do
+  button.btn.btn-default = (t :new_article)
 
-= render 'form'
-
-= link_to 'Back', articles_path

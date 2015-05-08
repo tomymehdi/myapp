@@ -1,0 +1,20 @@
+#notice
+  = notice
+h1 Listing Posts
+table
+  thead
+    tr
+      th Author
+      th Body
+      th colspan="3"
+  tbody
+    - @posts.each do |post|
+      tr
+        td= post.author
+        td= post.body
+        td= link_to article_post_path(@article, post) do
+          button.btn.btn-default = (t :back)
+        td= link_to edit_article_post_path(@article, post) do
+          button.btn.btn-default = (t :edit)
+        td= link_to article_post_path(@article, post), method: :delete, data: { confirm: (t :are_you_sure) } do
+          button.btn.btn-default = (t :destroy)
