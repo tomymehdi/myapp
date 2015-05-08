@@ -34,7 +34,7 @@ class PostsController < ApplicationController
 
     respond_to do |format|
       if @post.save
-        success_create(format, @article, 'Post was successfully created.', :created)
+        success_create(format, article, 'Post was successfully created.', :created)
       else
         format.html { render :new }
         format.json { render json: @post.errors, status: :unprocessable_entity }

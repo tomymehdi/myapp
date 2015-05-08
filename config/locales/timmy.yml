@@ -5,6 +5,7 @@ timmy:
   edit: "Editar"
   destroy: "Borrar"
   new_article: "Nuevo Articulo"
+  new_post: "Nuevo Post"
   listing_articles: "Lista Articulos"
   article: "Articulo"
   name: "Nombre"

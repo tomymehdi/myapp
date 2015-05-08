@@ -2,27 +2,65 @@ require 'rails_helper'
 
 describe PostsController do
   let!(:user) { create(:user) }
+  let!(:article) { create(:article) }
   describe '#create' do
-    context 'with valid params' do
-      it 'redirects to show page'
-    end
-    context 'with invalid params' do
-      it 're-renders #new form'
-    end
-  end
+    let!(:new_post) { build(:post, article_id: article.id) }
+    context 'when a user is logged' do
+      before :each do
+        sign_in user
+      end
+      context 'when a post is created with valid params' do
+        it 'increase posts count by 1' do
+          expect { post :create, article_id: article.id, post: new_post.attributes }
+          .to change(Post, :count).by(1)
+        end
 
-  describe '#update' do
-    context 'with valid params' do
-      it 'redirects to show page'
+        it 'increase article posts count by 1' do
+          expect { post :create, article_id: article.id, post: new_post.attributes }
+          .to change { article.reload.posts.count }.by(1)
+        end
+
+        it 'redirects to article' do
+          post :create, article_id: article.id, post: new_post.attributes
+          expect(response).to redirect_to article_path(article)
+        end
+      end
+      context 'when tring to create a post with invalid params' do
+        let!(:invalid_post) { build(:post, article_id: article.id, body: 'inv') }
+        it 're-renders posts#new form' do
+          post :create, article_id: article.id, post: invalid_post.attributes
+          expect(response).to render_template('new')
+        end
+      end
     end
-    context 'with invalid params' do
-      it 're-renders #new form'
+    context 'when a user isn\'t logged' do
+      it 'redirects to authentication view' do
+        post :create, article_id: article.id, post: new_post.attributes
+        expect(response).to redirect_to( new_user_session_path )
+      end
+      context 'when tring to create a post with valid params' do
+        it 'doesn\'t increase posts count by 1' do
+          expect { post :create, article_id: article.id, post: new_post.attributes }
+          .not_to change { Post, :count }
+        end
+
+        it 'doesn\'t increase article posts count by 1' do
+          expect { post :create, article_id: article.id, post: new_post.attributes }
+          .not_to change { article.reload.posts.count }
+        end
+      end
+      context 'when tring to create a post with invalid params' do
+        let!(:invalid_post) { build(:post, article_id: article.id, body: 'inv') }
+        it 'redirects to authentication view' do
+          post :create, article_id: article.id, post: invalid_post.attributes
+          expect(response).to redirect_to( new_user_session_path )
+        end
+      end
     end
   end
 
   describe '#destroy' do
     context 'when a post exists for an article' do
-      let!(:article) { create(:article) }
       let!(:post) { create(:post, article_id: article.id) }
       context 'when a user is logged' do
         before :each do
@@ -41,7 +79,7 @@ describe PostsController do
         context 'when html requested' do
           it 'redirects to articles#show html' do
             delete :destroy, article_id: article.id, id: post.id
-            response.should redirect_to article
+            expect(response).to redirect_to article
           end
         end
         context 'when json requested' do
@@ -56,12 +94,17 @@ describe PostsController do
       end
 
       context 'when a user isn\'t logged' do
-        before :each do
-          # sign_inn user
-        end
-        it 'redirects to authentication' do
+        it 'redirects to authentication view' do
           delete :destroy, article_id: article.id, id: post.id
           expect(response).to redirect_to( new_user_session_path )
+        end
+        it 'don\'t change the amount of posts' do
+          expect { delete :destroy, article_id: article.id, id: post.id }
+          .not_to change { Post.count }
+        end
+        it 'don\'t change the amount of article posts' do
+          expect { delete :destroy, article_id: article.id, id: post.id }
+          .not_to change { article.reload.posts.count }
         end
       end
     end

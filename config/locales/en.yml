@@ -5,6 +5,7 @@ en:
   edit: "Edit"
   destroy: "Destroy"
   new_article: "New Article"
+  new_post: "New Post"
   listing_articles: "List Articles"
   article: "Article"
   name: "Name"
